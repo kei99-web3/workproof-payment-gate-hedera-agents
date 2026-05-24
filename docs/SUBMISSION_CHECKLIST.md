@@ -19,8 +19,8 @@ This checklist is for a future public submission. Do not execute approval-gated 
 
 - [ ] Choose final public repository name.
 - [x] Choose license: MIT.
-- [ ] Approve public GitHub repo creation/publication.
-- [ ] Approve hosted demo deployment.
+- [x] Public GitHub repo created: https://github.com/kei99-web3/workproof-payment-gate-hedera-agents
+- [x] Hosted demo deployed: https://kei99-web3.github.io/workproof-payment-gate-hedera-agents/
 - [ ] Approve GitHub feedback issue posting.
 - [ ] Provide or enter payout wallet address directly.
 - [ ] Review and accept official terms.
