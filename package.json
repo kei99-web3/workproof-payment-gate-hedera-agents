@@ -1,0 +1,20 @@
+{
+  "name": "workproof-payment-gate-hedera-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local dry-run WorkProof Payment Gate prototype for Hedera AI Agent Bounty Week 5.",
+  "scripts": {
+    "demo": "node scripts/run-demo.mjs",
+    "serve:demo": "node scripts/serve-hosted-demo.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@hashgraph/hedera-agent-kit": "^4.0.0",
+    "@hiero-ledger/sdk": "^2.84.0",
+    "zod": "^3.25.76"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

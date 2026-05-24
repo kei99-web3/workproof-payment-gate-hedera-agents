@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WorkProof Payment Gate</title>
+  <style>
+    :root {
+      --ink: #16202a;
+      --muted: #607080;
+      --line: #d7dee7;
+      --bg: #f6f8fb;
+      --panel: #ffffff;
+      --blue: #2456a6;
+      --blue-soft: #eaf1ff;
+      --green: #116b4f;
+      --green-soft: #e7f5ef;
+      --amber: #8a5b00;
+      --amber-soft: #fff4d6;
+      --red: #a33a3a;
+      --red-soft: #fde8e8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.5;
+    }
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      padding: 24px 32px 20px;
+    }
+    main {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 20px 20px 42px;
+    }
+    h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: 0; }
+    h2 { margin: 0 0 12px; font-size: 19px; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 15px; letter-spacing: 0; }
+    p { margin: 0 0 12px; }
+    .meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    section, .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    button {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: left;
+      cursor: pointer;
+      font: inherit;
+      margin-top: 10px;
+    }
+    button[aria-pressed="true"] {
+      border-color: var(--blue);
+      background: var(--blue-soft);
+      box-shadow: inset 0 0 0 1px var(--blue);
+    }
+    button strong { display: block; font-size: 14px; }
+    button span { display: block; color: var(--muted); font-size: 12px; }
+    .state {
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      padding: 16px;
+      margin-bottom: 14px;
+      min-height: 130px;
+    }
+    .decision-note {
+      color: var(--muted);
+      font-size: 13px;
+      margin: -2px 0 12px;
+    }
+    .state.required { color: var(--amber); background: var(--amber-soft); }
+    .state.ready { color: var(--blue); background: var(--blue-soft); }
+    .state.allow { color: var(--green); background: var(--green-soft); }
+    .state.block { color: var(--red); background: var(--red-soft); }
+    .state strong { display: block; font-size: 30px; margin-bottom: 8px; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fff;
+      min-height: 116px;
+    }
+    .card strong { display: block; font-size: 14px; margin-bottom: 4px; }
+    .card span { color: var(--muted); font-size: 12px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 9px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f1f3f6; font-weight: 650; }
+    tr:last-child td { border-bottom: 0; }
+    code {
+      background: #eef1f5;
+      border: 1px solid #dfe4ea;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: Consolas, monospace;
+      font-size: 12px;
+    }
+    @media (max-width: 900px) {
+      header { padding: 20px; }
+      h1 { font-size: 28px; }
+      main { padding: 14px; }
+      .grid, .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>WorkProof Payment Gate</h1>
+    <div class="meta">
+      <span>Policy gate</span>
+      <span>1.00 USDC dry-run</span>
+      <span>Hedera Agent Kit bridge</span>
+      <span>No transaction</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="cards">
+      <div class="card"><strong>No proof, no pay</strong><span>Payment intent stays blocked until reproducible WorkProof exists.</span></div>
+      <div class="card"><strong>Human decision support</strong><span>Approval must match the exact payment payload and scope hash.</span></div>
+      <div class="card"><strong>Local dry-run only</strong><span>No wallet, no Hedera client initialization, no HCS topic, no transaction.</span></div>
+    </div>
+
+    <div class="grid">
+      <section>
+        <h2>4 Payment-Gate Scenarios</h2>
+        <p>An AI developer agent wants to pay a provider for completed work.</p>
+        <button type="button" data-scenario="missing" aria-pressed="true"><strong>Block: missing proof</strong><span>Stop at REQUIRED_EVIDENCE.</span></button>
+        <button type="button" data-scenario="proof"><strong>Ready: proof complete</strong><span>Approval is still required.</span></button>
+        <button type="button" data-scenario="approved"><strong>Allow: proof plus approval</strong><span>Local dry-run only.</span></button>
+        <button type="button" data-scenario="blocked"><strong>Guard: network action</strong><span>Block before tool execution.</span></button>
+      </section>
+
+      <section>
+        <h2>Decision</h2>
+        <p class="decision-note">WorkProof is required before a payment intent can become releasable.</p>
+        <div class="state required" id="stateBox">
+          <strong id="stateName">REQUIRED EVIDENCE</strong>
+          <p id="stateText">WorkProof is missing. The payment intent cannot move forward.</p>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Field</th><th>Value</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>asset</td><td><code>USDC</code></td></tr>
+            <tr><td>amount</td><td><code>1.00</code></td></tr>
+            <tr><td>amount minor units</td><td><code>1000000</code></td></tr>
+            <tr><td>network action</td><td><code id="networkAction">none</code></td></tr>
+            <tr><td>audit event</td><td><code id="auditEvent">payment_intent_not_releasable</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const scenarios = {
+      missing: {
+        state: "REQUIRED_EVIDENCE",
+        tone: "required",
+        text: "WorkProof is missing. The payment intent cannot move forward.",
+        network: "none",
+        audit: "payment_intent_not_releasable"
+      },
+      proof: {
+        state: "READY_FOR_APPROVAL",
+        tone: "ready",
+        text: "WorkProof is complete, but human approval is missing.",
+        network: "none",
+        audit: "waiting_for_human_decision"
+      },
+      approved: {
+        state: "ALLOW_DRY_RUN",
+        tone: "allow",
+        text: "Proof and approval match. The only executable path is local dry-run.",
+        network: "none",
+        audit: "dry_run_allowed_no_network_action"
+      },
+      blocked: {
+        state: "BLOCKED",
+        tone: "block",
+        text: "A network transaction was requested. Local autonomous execution is blocked.",
+        network: "testnet_transaction",
+        audit: "stopped_before_tool_execution"
+      }
+    };
+
+    const stateBox = document.getElementById("stateBox");
+    const stateName = document.getElementById("stateName");
+    const stateText = document.getElementById("stateText");
+    const networkAction = document.getElementById("networkAction");
+    const auditEvent = document.getElementById("auditEvent");
+    const buttons = Array.from(document.querySelectorAll("button[data-scenario]"));
+
+    function displayState(state) {
+      return state.replaceAll("_", " ");
+    }
+
+    function render(key) {
+      const scenario = scenarios[key];
+      for (const button of buttons) {
+        button.setAttribute("aria-pressed", button.dataset.scenario === key ? "true" : "false");
+      }
+      stateBox.className = `state ${scenario.tone}`;
+      stateName.textContent = displayState(scenario.state);
+      stateText.textContent = scenario.text;
+      networkAction.textContent = scenario.network;
+      auditEvent.textContent = scenario.audit;
+    }
+
+    for (const button of buttons) {
+      button.addEventListener("click", () => render(button.dataset.scenario));
+    }
+  </script>
+</body>
+</html>
