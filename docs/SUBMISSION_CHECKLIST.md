@@ -34,8 +34,9 @@ This checklist is for a future public submission. Do not execute approval-gated 
 - [x] Confirm only staging package files are prepared for publication.
 - [x] Confirm `.env`, keys, tokens, wallet material, and private workspace files are absent from the local package scan.
 - [x] Re-run `npm test` on 2026-06-03 JST.
+- [x] Re-run `npm run verify:local` on 2026-06-03 JST.
 - [x] Re-run `npm audit --omit=dev` on 2026-06-03 JST.
-- [ ] Verify README first screen explains Week 5, `1.00 USDC`, Agent Kit, and no-wallet local mode.
+- [x] Verify README first screen explains Week 5, `1.00 USDC`, Agent Kit, and no-wallet local mode.
 - [x] Verify hosted demo URL returns HTTP 200 on 2026-06-03 JST.
 - [ ] Verify hosted demo works on desktop and mobile after any approved public update.
-- [ ] Store public repo URL, hosted demo URL, and feedback issue URL in the submission draft.
+- [ ] Store public repo URL, hosted demo URL, and feedback issue URL in the final submission form after feedback issue posting is approved.
