@@ -57,10 +57,13 @@ This is not a wallet demo and does not submit any transaction.
 ```bash
 npm test
 npm run demo
+npm run verify:local
 npm run serve:demo
 ```
 
 The test suite uses only Node.js built-ins. No `.env`, wallet, OAuth, private key, testnet, mainnet, HCS topic, or transaction is required.
+
+`npm run verify:local` runs the test suite, prints the 1.00 USDC dry-run demo output, and validates the local package files, Agent Kit dependency declarations, demo copy, and approval-gate wording.
 
 `npm run serve:demo` starts a local-only static server at `127.0.0.1` for the hosted-demo candidate in `hosted-demo/index.html`. This is not a public hosted URL.
 

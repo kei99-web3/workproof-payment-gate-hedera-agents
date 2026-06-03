@@ -8,6 +8,7 @@ Verified locally on 2026-06-03 JST.
 npm install --package-lock=false --ignore-scripts
 npm test
 npm run demo
+npm run verify:local
 npm run serve:demo
 npm audit --omit=dev
 npm audit fix
@@ -42,6 +43,15 @@ npm audit fix
   - `WorkProofApprovalPolicy`
 
 See `docs/DEMO_OUTPUT_SUMMARY.md`.
+
+## Package Verification Result
+
+`npm run verify:local` exits successfully. It runs `npm test`, runs the 1.00 USDC dry-run demo, and checks:
+
+- required source, test, hosted-demo, and docs files;
+- `@hashgraph/hedera-agent-kit`, `@hiero-ledger/sdk`, and `zod` dependency declarations;
+- README and hosted-demo copy for the Week 5 payment-gate story;
+- approval-gate wording for wallet, transaction, terms acceptance, and feedback posting.
 
 ## Audit Result
 

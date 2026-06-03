@@ -7,7 +7,8 @@
   "scripts": {
     "demo": "node scripts/run-demo.mjs",
     "serve:demo": "node scripts/serve-hosted-demo.mjs",
-    "test": "node --test test/*.test.mjs"
+    "test": "node --test test/*.test.mjs",
+    "verify:local": "npm test && npm run demo && node scripts/validate-local-package.mjs"
   },
   "dependencies": {
     "@hashgraph/hedera-agent-kit": "^4.0.0",
