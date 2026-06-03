@@ -1,6 +1,6 @@
 # Local Verification
 
-Verified locally on 2026-05-23 JST.
+Verified locally on 2026-06-03 JST.
 
 ## Commands
 
@@ -9,6 +9,8 @@ npm install --package-lock=false --ignore-scripts
 npm test
 npm run demo
 npm run serve:demo
+npm audit --omit=dev
+npm audit fix
 ```
 
 ## Test Result
@@ -43,16 +45,16 @@ See `docs/DEMO_OUTPUT_SUMMARY.md`.
 
 ## Audit Result
 
-`npm audit --omit=dev` currently reports 6 vulnerabilities in the transitive Hedera SDK dependency path:
+`npm audit --omit=dev` currently reports 6 vulnerabilities in the transitive Hedera SDK dependency path. `npm audit fix` was attempted on 2026-06-03 JST and did not remove the remaining advisories:
 
 - high-severity `protobufjs` advisories through `@hiero-ledger/proto` / `@hiero-ledger/sdk`, with no npm fix available at the time of local verification;
-- moderate `ws` advisories through `ethers`, with an audit-fix path reported by npm.
+- moderate `ws` advisories through `ethers`.
 
-The local demo does not initialize a Hedera client, does not parse network payloads, does not use a wallet, and does not submit transactions. Re-run audit before any public submission and document the latest result.
+The local demo does not initialize a Hedera client, does not parse network payloads, does not use a wallet, and does not submit transactions. Re-run audit before any public update or final submission and document the latest result.
 
 ## Secret Scan
 
-A keyword scan over the staging package did not find secret values. Expected hits were safety-boundary words such as `secret_read`, `oauth`, and no-secrets documentation.
+A keyword scan over the Hedera package did not find secret values. Expected hits were safety-boundary words such as `private key`, `seed phrase`, `wallet`, `OAuth`, `transaction`, and no-secrets documentation.
 
 ## Screenshots
 
@@ -60,4 +62,4 @@ Local screenshots are stored in the private workspace under:
 
 `deliverables/screenshots/`
 
-Do not publish or attach screenshots until public repo/demo/submission approval is granted.
+Do not publish or attach updated screenshots until public repo/demo/submission update approval is granted.

@@ -4,8 +4,8 @@ This prototype is intentionally local-first and no-transaction by default.
 
 The following actions are outside the local demo and require explicit human approval before they happen:
 
-- public GitHub publication;
-- hosted demo deployment;
+- new public GitHub publication or public repo updates;
+- new hosted demo deployment or hosted demo updates;
 - GitHub issue feedback posting;
 - wallet creation, connection, address handling, or payout handling;
 - faucet, testnet, mainnet, HCS topic creation, or any transaction;
